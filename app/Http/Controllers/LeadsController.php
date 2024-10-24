@@ -52,4 +52,39 @@ class LeadsController extends Controller
         $statuses = \App\Models\LeadStatus::all();
         return response()->json($statuses);
     }
+
+    public function store(Request $request)
+    {
+        // Validation
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:leads,email',
+            'phone' => 'required|string|max:15',
+            'lead_status_id' => 'required|exists:lead_statuses,id',
+        ]);
+
+        // Create new lead
+        $lead = Lead::create($validated);
+
+        return response()->json($lead, 201);  // Return the created lead
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Find the lead by ID
+        $lead = Lead::findOrFail($id);
+
+        // Validation
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:leads,email,' . $id,  // Allow same email for the current lead
+            'phone' => 'required|string|max:15',
+            'lead_status_id' => 'required|exists:lead_statuses,id',
+        ]);
+
+        // Update the lead
+        $lead->update($validated);
+
+        return response()->json($lead);  // Return the updated lead
+    }
 }

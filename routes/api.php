@@ -23,6 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/leads', [LeadsController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/leads', [LeadsController::class, 'store']);  // Insert new lead
+Route::middleware('auth:sanctum')->put('/leads/{id}', [LeadsController::class, 'update']);  // Update existing lead
 Route::middleware('auth:sanctum')->get('/lead-statuses', [LeadsController::class, 'getStatuses']);
-
-
