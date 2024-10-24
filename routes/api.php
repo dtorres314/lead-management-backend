@@ -23,8 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/leads', [LeadsController::class, 'index']);
-// Route::get('/sanctum/csrf-cookie', function () {
-//     return response()->json(['message' => 'CSRF token issued']);
-// });
 
 
