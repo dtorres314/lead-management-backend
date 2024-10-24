@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/leads', [LeadsController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/lead-statuses', [LeadsController::class, 'getStatuses']);
 
 
